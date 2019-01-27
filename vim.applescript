@@ -29,10 +29,9 @@ end splitText
 
 on darknessHelper(num, dirKeyCode)
     tell application "System Events"
-        key code 53
         keystroke "i"
-
         delay 0.01
+
         repeat num times
             key code dirKeyCode using {shift down, option down}
             delay 0.01
@@ -41,6 +40,15 @@ on darknessHelper(num, dirKeyCode)
         key code 51
     end tell
 end darknessHelper
+
+on golfHelper(num, dirKeyCode)
+    tell application "System Events"
+        repeat num times
+            key code dirKeyCode using {option down}                
+            delay .01
+        end repeat
+    end tell
+end golfHelper
 
 on run {input, parameters}
 	display dialog "Enter VIM command" default answer ""
@@ -51,6 +59,8 @@ on run {input, parameters}
 	set noun to item 1 of cmd
 	
     activate application "Visual Studio Code"
+    tell application "System Events" to key code 53
+    delay .01
 
 	if noun is "taco" then
         set num to item 2 of cmd
@@ -63,7 +73,7 @@ on run {input, parameters}
         set num to item 2 of cmd
         set val to "d" & num & "d"
 		tell application "System Events" to keystroke val
-    else if noun is "yankee" then
+    else if noun is "yellow" then
         set num to item 2 of cmd
         set val to "y" & num & "y"
 		tell application "System Events" to keystroke val
@@ -97,7 +107,6 @@ on run {input, parameters}
 		tell application "System Events" to keystroke val
     else if noun is "darkness" then
         set direction to item 2 of cmd
-        set direction to changeCaseOfText(cmd, "lower")
 
         set num to item 3 of cmd as number
         if direction is "left" then
@@ -105,22 +114,19 @@ on run {input, parameters}
         else
             darknessHelper(num, 124)            
         end if
-    else if noun is "go" then
-		tell application "System Events" to key code 53
-
+    else if noun is "golf" then
         set direction to item 2 of cmd
-        set direction to changeCaseOfText(cmd, "lower")
-
-        set num to item 3 of cmd
-        repeat num times
-            if direction is "left" then
-                tell application "System Events" to key code 123 using {option down} 
-            else
-                tell application "System Events" to key code 124 using {option down} 
-            end if
-        end repeat
+        set num to item 3 of cmd as number
+        
+        -- display dialog direction
+        if direction is "left" then
+            -- display dialog 123
+            golfHelper(num, 123)
+        else
+            -- display dialog 124
+            golfHelper(num, 124)
+        end if
     else if noun is "arrow" then
-        delay 8
         set num to item 2 of cmd as number
         tell application "System Events"
             repeat num times
