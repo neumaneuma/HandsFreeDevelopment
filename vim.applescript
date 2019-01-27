@@ -50,6 +50,8 @@ on run {input, parameters}
 	set cmd to splitText(cmd, space)
 	set noun to item 1 of cmd
 	
+    activate application "Visual Studio Code"
+
 	if noun is "taco" then
         set num to item 2 of cmd
         set val to num & "gg"
@@ -94,7 +96,6 @@ on run {input, parameters}
 		tell application "System Events" to key code 53
 		tell application "System Events" to keystroke val
     else if noun is "darkness" then
-        activate application "Visual Studio Code"
         set direction to item 2 of cmd
         set direction to changeCaseOfText(cmd, "lower")
 
@@ -119,12 +120,17 @@ on run {input, parameters}
             end if
         end repeat
     else if noun is "arrow" then
+        delay 8
         set num to item 2 of cmd as number
-        repeat num times
-            tell application "System Events" to key code 125 using {option down} 
-        end repeat
-	
-        tell application "System Events" to key code 76 using {option down} 
+        tell application "System Events"
+            repeat num times
+                key code 125
+                delay .01
+            end repeat
+        
+            key code 76
+        end tell
+        
 	end if
 	
 	return input
