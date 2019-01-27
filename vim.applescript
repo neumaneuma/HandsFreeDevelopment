@@ -100,10 +100,10 @@ on run {input, parameters}
                 key code 53
                 keystroke "i"
 
-                delay 0.5
-                repeat 8 times
+                delay 0.01
+                repeat num times
 					key code 124 using {shift down, option down}
-					delay 0.1
+					delay 0.01
 				end repeat
 
                 key code 51
