@@ -27,9 +27,20 @@ on splitText(theText, theDelimiter)
 	return theTextItems
 end splitText
 
-on highlight(dirKeyCode)
+on darknessHelper(num, dirKeyCode)
+    tell application "System Events"
+        key code 53
+        keystroke "i"
 
-end highlight
+        delay 0.01
+        repeat num times
+            key code dirKeyCode using {shift down, option down}
+            delay 0.01
+        end repeat
+
+        key code 51
+    end tell
+end darknessHelper
 
 on run {input, parameters}
 	display dialog "Enter VIM command" default answer ""
@@ -89,25 +100,9 @@ on run {input, parameters}
 
         set num to item 3 of cmd as number
         if direction is "left" then
-            tell application "System Events"
-                key code 53
-                keystroke "i"
-                key code 123 using {shift down, option down}
-                key code 117
-            end tell
+            darknessHelper(num, 123)
         else
-            tell application "System Events"
-                key code 53
-                keystroke "i"
-
-                delay 0.01
-                repeat num times
-					key code 124 using {shift down, option down}
-					delay 0.01
-				end repeat
-
-                key code 51
-            end tell
+            darknessHelper(num, 124)            
         end if
     else if noun is "go" then
 		tell application "System Events" to key code 53
@@ -124,7 +119,7 @@ on run {input, parameters}
             end if
         end repeat
     else if noun is "arrow" then
-        set num to item 2 of cmd
+        set num to item 2 of cmd as number
         repeat num times
             tell application "System Events" to key code 125 using {option down} 
         end repeat
