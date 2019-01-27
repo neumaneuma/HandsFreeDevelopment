@@ -118,12 +118,9 @@ on run {input, parameters}
         set direction to item 2 of cmd
         set num to item 3 of cmd as number
         
-        -- display dialog direction
         if direction is "left" then
-            -- display dialog 123
             golfHelper(num, 123)
         else
-            -- display dialog 124
             golfHelper(num, 124)
         end if
     else if noun is "arrow" then
