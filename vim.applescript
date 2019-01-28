@@ -170,6 +170,10 @@ on run {input, parameters}
         set num to item 2 of cmd
         set num to parseNum(num) as number
         tell application "System Events"
+            key code 53
+            delay .01
+            key code 49 using {control down}
+            delay .5
             repeat num times
                 key code 125
                 delay .01
